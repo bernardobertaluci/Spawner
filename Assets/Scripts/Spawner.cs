@@ -4,22 +4,14 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {   
-    [SerializeField]private GameObject _template;
+    [SerializeField] private GameObject _template;
+    [SerializeField] private Transform _parent;
 
     private Transform[] _spawners;
-    private Transform _parent;
-
+ 
     private float _delay = 2f;
 
     private void Start()
-    {
-        _parent = GetComponent<Transform>();
-        GetChildTransform();
-
-        StartCoroutine(SpawnEnemy());
-    }
-
-    private void GetChildTransform()
     {
         _spawners = new Transform[_parent.childCount];
 
@@ -27,6 +19,8 @@ public class Spawner : MonoBehaviour
         {
             _spawners[i] = _parent.GetChild(i);
         }
+
+        StartCoroutine(SpawnEnemy());
     }
 
     private IEnumerator SpawnEnemy()
